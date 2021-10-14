@@ -1,0 +1,66 @@
+:root {
+  --grey: #666666;
+  --default-pad: 10px;
+  --hover-animation: all 0.2s ease-in-out 0.2s;
+}
+
+#header-container {
+  color: var(--grey);
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+#header-left {
+  display: inline-flex;
+  align-items: center;
+  justify-content: left;
+  height: inherit;
+}
+
+#header-dropdown {
+  padding-left: var(--default-pad);
+  height: inherit;
+  display: flex;
+  align-items: center;
+  transition: var(--hover-animation);
+}
+
+#header-dropdown:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+#header-dropdown:hover > .header-caret {
+  transition: var(--hover-animation);
+  transform: rotate(180deg);
+}
+
+#header-dropdown-title {
+  padding-right: 5px;
+}
+
+#header-title {
+  font-size: 20px;
+  padding-right: var(--default-pad);
+  border-right: 1px solid var(--grey);
+}
+
+#header-right {
+  display: flex;
+
+}
+
+#header-right > a {
+  color: var(--grey);
+  font-size: 23px;
+  padding-left: 10px;
+  transition: var(--hover-animation);
+}
+
+#header-right > a:hover {
+  opacity: 0.6;
+}
