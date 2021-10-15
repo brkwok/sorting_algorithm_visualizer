@@ -1,7 +1,7 @@
 :root {
   --grey: #666666;
   --default-pad: 10px;
-  --hover-animation: all 0.2s ease-in-out 0.2s;
+  --hover-animation: all 0.1s ease-in-out;
 }
 
 #header-container {
@@ -103,4 +103,5 @@
   background-color: lightgray;
   font-weight: bold;
   cursor: pointer;
+  transition: var(--hover-animation);
 }
