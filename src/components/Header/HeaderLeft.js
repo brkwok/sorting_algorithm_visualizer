@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import Dropdown from "./Dropdown";
 
-export default function HeaderLeft() {
+export default function HeaderLeft({ setAlgorithm }) {
   return (
     <div id="header-left">
       <div id="header-title">Sorting Visualizer</div>
@@ -14,7 +14,7 @@ export default function HeaderLeft() {
           className="header-caret"
           icon={faCaretUp}
         />
-        <Dropdown />
+        <Dropdown setAlgorithm={setAlgorithm} />
       </div>
     </div>
   );
