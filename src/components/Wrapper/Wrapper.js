@@ -16,7 +16,7 @@ class Wrapper extends React.Component {
   };
 
   render() {
-    console.log(this.state.algorithm);
+    console.log(this.state.algorithm); // FIXME: REMOVE
     return (
       <>
         <Header setAlgorithm={this.setAlgorithm} />
