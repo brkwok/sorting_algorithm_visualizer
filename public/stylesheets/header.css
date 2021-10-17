@@ -27,7 +27,7 @@
   align-items: center;
   justify-content: center;
   transition: var(--hover-animation);
-  min-width: 160px;
+  min-width: 140px;
 }
 
 
@@ -60,6 +60,7 @@
   padding-right: var(--default-pad);
   border-right: 1px solid var(--grey);
   margin-right: var(--default-pad);
+  cursor: default;
 }
 
 #header-right {
@@ -102,6 +103,7 @@
   width: 155px;
   border-top: 1px solid lightgray;
   padding-left: 5px;
+  background: white;
 }
 
 #header-dropdown-algo-list > div:first-child {

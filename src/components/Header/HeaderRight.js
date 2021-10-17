@@ -8,13 +8,13 @@ import {
 export default function HeaderRight() {
   return (
     <div id="header-right">
-      <a target="_blank" href="https://github.com//brkwok">
+      <a target="_blank" rel="noreferrer" href="https://github.com//brkwok">
         <FontAwesomeIcon icon={faGithub} />
       </a>
-      <a target="_blank" href="https://www.linkedin.com/in/br-kwok/">
+      <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/br-kwok/">
         <FontAwesomeIcon icon={faLinkedin} />
       </a>
-      <a target="_blank" href="https://angel.co/u/brkwok">
+      <a target="_blank" rel="noreferrer" href="https://angel.co/u/brkwok">
         <FontAwesomeIcon icon={faAngellist} />
       </a>
     </div>
