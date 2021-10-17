@@ -17,8 +17,15 @@
 }
 
 #array-bar {
-  border: 1px solid black;
+  border: 1px solid var(--grey);
   border-bottom: none;
+}
+
+#array-generate {
+  background-color: var(--grey);
+  border:none;
+  color: white;
+  border-radius: 4px;
 }
 
 @media screen and (max-width: 900px) {
