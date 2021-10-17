@@ -13,10 +13,10 @@ class ArrayContainer extends React.Component {
     this.generateNewArray();
   };
 
-  generateNewArray = () => {
+  generateNewArray = async () => {
     let newArray = generateArray(ARR_SIZE);
 
-    this.setState({ arr: newArray });
+    await this.setState({ arr: newArray });
   };
 
   visualize = async () => {
@@ -65,7 +65,7 @@ class ArrayContainer extends React.Component {
           Generate New Chart
         </button>
         <button id="array-generate" onClick={this.visualize}>
-          Generate New Chart
+          Sort
         </button>
         <div id="array-container">
           {this.state.arr.map((num, i) => {
