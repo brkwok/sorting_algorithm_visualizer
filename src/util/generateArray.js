@@ -6,6 +6,7 @@ export const generateArray = (size) => {
 
     obj.val = Math.floor(Math.random() * 100) + 1;
     obj.type = "normal";
+    obj.className = "inactive";
 
     arr.push(obj);
   }

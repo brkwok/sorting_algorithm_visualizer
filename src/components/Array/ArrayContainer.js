@@ -33,22 +33,50 @@ class ArrayContainer extends React.Component {
         await this.visualizeQueue(curr);
       }
     }
+
+    this.done(this.state.arr);
   };
+
+  done = async (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].className = "finished";
+      await this.updateState(arr);
+    }
+  }
 
   visualizeQueue = async (elementsToSwap) => {
     let copy = this.state.arr.slice();
 
+    await this.updateStyle(copy, elementsToSwap, 1);
     let temp = copy[elementsToSwap[0]].val;
     copy[elementsToSwap[0]].val = copy[elementsToSwap[1]].val;
     copy[elementsToSwap[1]].val = temp;
 
     await this.updateState(copy);
+    await this.updateStyle(copy, elementsToSwap, 0);
   };
 
   updateState = async (arr) => {
     this.setState({arr: [...arr]});
     await this.timeOut();
   };
+
+  updateStyle = async(arr, indices, bool) => {
+    arr[indices[0]].className = bool ? "active" : "inactive";
+    arr[indices[1]].className = bool ? "active" : "inactive";
+
+    await this.updateState(arr);
+  }
+
+  getClassType = async(type) => {
+    if (type === 1) {
+      return "active";
+    } else if (type === 2) {
+      return "inactive";
+    } else {
+      return "finished";
+    }
+  }
 
   timeOut = async () => {
     return new Promise((resolve) => {
@@ -74,6 +102,7 @@ class ArrayContainer extends React.Component {
             return (
               <div
                 id="array-bar"
+                className={`bar ${num.className}`}
                 key={key}
                 style={{
                   height: `${(num.val / 200) * 150}%`,
