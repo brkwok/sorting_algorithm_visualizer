@@ -6,7 +6,7 @@ export const bubbleSort = async (arr) => {
   for (let i = 0; i < arr.length - 1; i++) {
     let swapped = false;
     for (let j = 0; j < arr.length - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
+      if (arr[j].val > arr[j + 1].val) {
         await swap(arr, j, j + 1);
         visualizeQueue.push([j, j + 1, true]);
         swapped = true;

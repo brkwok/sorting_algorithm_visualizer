@@ -38,15 +38,15 @@ class ArrayContainer extends React.Component {
   visualizeQueue = async (elementsToSwap) => {
     let copy = this.state.arr.slice();
 
-    let temp = copy[elementsToSwap[0]];
-    copy[elementsToSwap[0]] = copy[elementsToSwap[1]];
-    copy[elementsToSwap[1]] = temp;
+    let temp = copy[elementsToSwap[0]].val;
+    copy[elementsToSwap[0]].val = copy[elementsToSwap[1]].val;
+    copy[elementsToSwap[1]].val = temp;
 
     await this.updateState(copy);
   };
 
   updateState = async (arr) => {
-    this.setState({ arr });
+    this.setState({arr: [...arr]});
     await this.timeOut();
   };
 
@@ -69,14 +69,14 @@ class ArrayContainer extends React.Component {
         </button>
         <div id="array-container">
           {this.state.arr.map((num, i) => {
-            let key = num.toString() + " " + i.toString();
+            let key = num.val.toString() + " " + i.toString();
 
             return (
               <div
                 id="array-bar"
                 key={key}
                 style={{
-                  height: `${(num / 200) * 150}%`,
+                  height: `${(num.val / 200) * 150}%`,
                   width: `calc(100vw / ${ARR_SIZE} - 4px)`,
                 }}
               ></div>
