@@ -41,6 +41,11 @@ button#array-generate:disabled {
   transition: all 0.1s ease-out;
 }
 
+.bar.searching {
+  background-color: red;
+  transition: all 0.1s ease-out;
+}
+
 .bar.finished {
   background-color: lightgreen;
   transition: all 0.1s ease-out;

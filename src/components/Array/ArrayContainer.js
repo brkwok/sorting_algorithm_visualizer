@@ -1,6 +1,7 @@
 import React from "react";
 import { generateArray } from "../../util/generateArray";
 import { bubbleSort } from "../../util/algorithms/bubbleSort";
+import { selectionSort } from "../../util/algorithms/selectionSort";
 
 import { DEFAULT_ARR_SIZE } from "../../util/helpers/constants";
 
@@ -38,19 +39,39 @@ class ArrayContainer extends React.Component {
     await this.setState({ arr: newArray });
   };
 
+  getQueue = async(arr) => {
+    let queue = [];
+
+    if (this.props.algorithm === "bubbleSort") {
+      queue = await bubbleSort(arr);
+    } else if (this.props.algorithm === "selectionSort") {
+      queue = await selectionSort(arr);
+    } else if (this.props.algorithm === "mergeSort") {
+      queue = await bubbleSort(arr);
+    } else if (this.props.algorithm === "quickSort") {
+      queue = await bubbleSort(arr);
+    }
+
+    return queue;
+  }
+
   visualize = async () => {
     await this.setState({ isSorting: true });
     let arrCopy = this.state.arr.slice();
-    let queue = await bubbleSort(arrCopy);
+    let queue = await this.getQueue(arrCopy);
 
     if (queue.length < 1) {
       return;
     }
+
+    arrCopy = this.state.arr.slice();
     while (queue.length > 0) {
       let curr = queue.shift();
 
       if (curr[2]) {
-        await this.visualizeQueue(curr);
+        await this.visualizeQueueSwap(curr, arrCopy);
+      } else {
+         await this.visualizeQueueNoneSwap(curr, arrCopy);
       }
     }
 
@@ -65,17 +86,21 @@ class ArrayContainer extends React.Component {
     }
   };
 
-  visualizeQueue = async (elementsToSwap) => {
-    let copy = this.state.arr.slice();
+  visualizeQueueSwap = async (elementsToSwap, arr) => {
+    await this.updateStyle(arr, elementsToSwap, 1);
+    let temp = arr[elementsToSwap[0]].val;
+    arr[elementsToSwap[0]].val = arr[elementsToSwap[1]].val;
+    arr[elementsToSwap[1]].val = temp;
 
-    await this.updateStyle(copy, elementsToSwap, 1);
-    let temp = copy[elementsToSwap[0]].val;
-    copy[elementsToSwap[0]].val = copy[elementsToSwap[1]].val;
-    copy[elementsToSwap[1]].val = temp;
-
-    await this.updateState(copy);
-    await this.updateStyle(copy, elementsToSwap, 0);
+    await this.updateState(arr);
+    await this.updateStyle(arr, elementsToSwap, 0);
   };
+
+  visualizeQueueNoneSwap = async (elements, arr) => {
+    await this.updateStyle(arr, elements, 2);
+    await this.updateState(arr);
+    await this.updateStyle(arr, elements, 0);
+  }
 
   updateState = async (arr) => {
     this.setState({ arr: [...arr] });
@@ -83,17 +108,19 @@ class ArrayContainer extends React.Component {
   };
 
   updateStyle = async (arr, indices, bool) => {
-    arr[indices[0]].className = bool ? "active" : "inactive";
-    arr[indices[1]].className = bool ? "active" : "inactive";
+    arr[indices[0]].className = await this.getClassType(bool);
+    arr[indices[1]].className = await this.getClassType(bool);
 
     await this.updateState(arr);
   };
 
   getClassType = async (type) => {
-    if (type === 1) {
+    if (type === 0) {
+      return "inactive";
+    } else if (type === 1) {
       return "active";
     } else if (type === 2) {
-      return "inactive";
+      return "searching";
     } else {
       return "finished";
     }
