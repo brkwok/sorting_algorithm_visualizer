@@ -1,0 +1,114 @@
+#header-container {
+  color: var(--grey);
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+#header-left {
+  display: inline-flex;
+  align-items: center;
+  justify-content: left;
+  height: inherit;
+}
+
+#header-dropdown {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--hover-animation);
+  min-width: 140px;
+}
+
+
+#header-dropdown > .header-dropdown-fields * {
+  display: none;
+}
+
+#header-dropdown:hover > .header-dropdown-fields * {
+  display: flex;
+}
+
+#header-dropdown:hover > span{
+  cursor: pointer;
+  opacity: 0.6;
+  transition: var(--hover-animation);
+}
+
+#header-dropdown:hover > .header-caret {
+  transition: var(--hover-animation);
+  transform: rotate(180deg);
+  opacity: 0.6;
+}
+
+#header-dropdown-title {
+  padding-right: 5px;
+}
+
+#header-title {
+  font-size: 20px;
+  padding-right: var(--default-pad);
+  border-right: 1px solid var(--grey);
+  margin-right: var(--default-pad);
+  cursor: default;
+}
+
+#header-right {
+  display: flex;
+
+}
+
+#header-right > a {
+  color: var(--grey);
+  font-size: 23px;
+  padding-left: 10px;
+  transition: var(--hover-animation);
+}
+
+#header-right > a:hover {
+  opacity: 0.6;
+}
+
+#header-dropdown-fields {
+  display: block;
+  position: absolute;
+  height: auto;
+  top: 50px;
+  width: inherit;
+  background-color: white;
+  z-index: 99;
+}
+
+#header-dropdown-fields > div {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  width: inherit;
+  border: 1px solid lightgray
+}
+
+#header-dropdown-algo-list > div {
+  height: 40px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 155px;
+  border-top: 1px solid lightgray;
+  padding-left: 5px;
+  background: white;
+}
+
+#header-dropdown-algo-list > div:first-child {
+  border-top: none;
+}
+
+#header-dropdown-algo-list > div:hover {
+  background-color: lightgray;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--hover-animation);
+}
