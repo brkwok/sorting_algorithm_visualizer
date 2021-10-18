@@ -3,7 +3,7 @@ import { generateArray } from "../../util/generateArray";
 import { bubbleSort } from "../../util/algorithms/bubbleSort";
 import { selectionSort } from "../../util/algorithms/selectionSort";
 
-import { DEFAULT_ARR_SIZE } from "../../util/helpers/constants";
+import { DEFAULT_ARR_SIZE, SORTING_SPEED, INACTIVE, ACTIVE, SEARCHING } from "../../util/helpers/constants";
 
 class ArrayContainer extends React.Component {
   state = {
@@ -87,19 +87,19 @@ class ArrayContainer extends React.Component {
   };
 
   visualizeQueueSwap = async (elementsToSwap, arr) => {
-    await this.updateStyle(arr, elementsToSwap, 1);
+    await this.updateStyle(arr, elementsToSwap, ACTIVE);
     let temp = arr[elementsToSwap[0]].val;
     arr[elementsToSwap[0]].val = arr[elementsToSwap[1]].val;
     arr[elementsToSwap[1]].val = temp;
 
     await this.updateState(arr);
-    await this.updateStyle(arr, elementsToSwap, 0);
+    await this.updateStyle(arr, elementsToSwap, INACTIVE);
   };
 
   visualizeQueueNoneSwap = async (elements, arr) => {
-    await this.updateStyle(arr, elements, 2);
+    await this.updateStyle(arr, elements, SEARCHING);
     await this.updateState(arr);
-    await this.updateStyle(arr, elements, 0);
+    await this.updateStyle(arr, elements, INACTIVE);
   }
 
   updateState = async (arr) => {
@@ -115,14 +115,12 @@ class ArrayContainer extends React.Component {
   };
 
   getClassType = async (type) => {
-    if (type === 0) {
+    if (type === INACTIVE) {
       return "inactive";
-    } else if (type === 1) {
+    } else if (type === ACTIVE) {
       return "active";
-    } else if (type === 2) {
+    } else if (type === SEARCHING) {
       return "searching";
-    } else {
-      return "finished";
     }
   };
 
@@ -130,7 +128,7 @@ class ArrayContainer extends React.Component {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 10);
+      }, SORTING_SPEED);
     });
   };
 
@@ -164,7 +162,7 @@ class ArrayContainer extends React.Component {
                 className={`bar ${num.className}`}
                 key={key}
                 style={{
-                  height: `${(num.val / 200) * 150}%`,
+                  height: `${num.val}%`,
                   width: `calc(100vw / ${DEFAULT_ARR_SIZE} - 4px)`,
                 }}
               ></div>
