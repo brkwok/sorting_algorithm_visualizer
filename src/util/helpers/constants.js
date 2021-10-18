@@ -1,0 +1,1 @@
+export const DEFAULT_ARR_SIZE = 30;

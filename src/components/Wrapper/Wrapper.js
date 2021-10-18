@@ -20,7 +20,7 @@ class Wrapper extends React.Component {
     return (
       <>
         <Header setAlgorithm={this.setAlgorithm} />
-        <ArrayContainer />
+        <ArrayContainer algorithm={this.state.algorithm}/>
       </>
     );
   }

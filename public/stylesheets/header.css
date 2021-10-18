@@ -79,6 +79,8 @@
   height: auto;
   top: 50px;
   width: inherit;
+  background-color: white;
+  z-index: 99;
 }
 
 #header-dropdown-fields > div {

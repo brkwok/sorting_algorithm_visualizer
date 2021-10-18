@@ -2,24 +2,44 @@ import React from "react";
 import { generateArray } from "../../util/generateArray";
 import { bubbleSort } from "../../util/algorithms/bubbleSort";
 
-const ARR_SIZE = 30;
+import { DEFAULT_ARR_SIZE } from "../../util/helpers/constants";
 
 class ArrayContainer extends React.Component {
   state = {
     arr: [],
+    isSorting: false,
+    currAlgo: "Bubble Sort",
   };
 
-  componentDidMount = () => {
-    this.generateNewArray();
+  componentDidMount = async () => {
+    await this.generateNewArray();
+  };
+
+  componentDidUpdate = async (pp, _) => {
+    if (pp.algorithm !== this.props.algorithm) {
+      let currAlgo = "";
+      if (this.props.algorithm === "bubbleSort") {
+        currAlgo = "Bubble Sort";
+      } else if (this.props.algorithm === "selectionSort") {
+        currAlgo = "Selection Sort";
+      } else if (this.props.algorithm === "mergeSort") {
+        currAlgo = "Merge Sort";
+      } else if (this.props.algorithm === "quickSort") {
+        currAlgo = "Quick Sort";
+      }
+
+      await this.setState({ currAlgo });
+    }
   };
 
   generateNewArray = async () => {
-    let newArray = generateArray(ARR_SIZE);
+    let newArray = generateArray(DEFAULT_ARR_SIZE);
 
     await this.setState({ arr: newArray });
   };
 
   visualize = async () => {
+    await this.setState({ isSorting: true });
     let arrCopy = this.state.arr.slice();
     let queue = await bubbleSort(arrCopy);
 
@@ -34,7 +54,8 @@ class ArrayContainer extends React.Component {
       }
     }
 
-    this.done(this.state.arr);
+    await this.done(this.state.arr);
+    await this.setState({ isSorting: false });
   };
 
   done = async (arr) => {
@@ -42,7 +63,7 @@ class ArrayContainer extends React.Component {
       arr[i].className = "finished";
       await this.updateState(arr);
     }
-  }
+  };
 
   visualizeQueue = async (elementsToSwap) => {
     let copy = this.state.arr.slice();
@@ -57,18 +78,18 @@ class ArrayContainer extends React.Component {
   };
 
   updateState = async (arr) => {
-    this.setState({arr: [...arr]});
+    this.setState({ arr: [...arr] });
     await this.timeOut();
   };
 
-  updateStyle = async(arr, indices, bool) => {
+  updateStyle = async (arr, indices, bool) => {
     arr[indices[0]].className = bool ? "active" : "inactive";
     arr[indices[1]].className = bool ? "active" : "inactive";
 
     await this.updateState(arr);
-  }
+  };
 
-  getClassType = async(type) => {
+  getClassType = async (type) => {
     if (type === 1) {
       return "active";
     } else if (type === 2) {
@@ -76,7 +97,7 @@ class ArrayContainer extends React.Component {
     } else {
       return "finished";
     }
-  }
+  };
 
   timeOut = async () => {
     return new Promise((resolve) => {
@@ -89,12 +110,23 @@ class ArrayContainer extends React.Component {
   render() {
     return (
       <section className="chart-container">
-        <button id="array-generate" onClick={this.generateNewArray}>
-          Generate New Chart
-        </button>
-        <button id="array-generate" onClick={this.visualize}>
-          Sort
-        </button>
+        <h1 className="chart-current-algo">{this.state.currAlgo}</h1>
+        <div id="array-button-container">
+          <button
+            disabled={this.state.isSorting}
+            id="array-generate"
+            onClick={this.generateNewArray}
+          >
+            Generate New Chart
+          </button>
+          <button
+            disabled={this.state.isSorting}
+            id="array-generate"
+            onClick={this.visualize}
+          >
+            Sort
+          </button>
+        </div>
         <div id="array-container">
           {this.state.arr.map((num, i) => {
             let key = num.val.toString() + " " + i.toString();
@@ -106,7 +138,7 @@ class ArrayContainer extends React.Component {
                 key={key}
                 style={{
                   height: `${(num.val / 200) * 150}%`,
-                  width: `calc(100vw / ${ARR_SIZE} - 4px)`,
+                  width: `calc(100vw / ${DEFAULT_ARR_SIZE} - 4px)`,
                 }}
               ></div>
             );
