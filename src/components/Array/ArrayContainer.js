@@ -2,8 +2,15 @@ import React from "react";
 import { generateArray } from "../../util/generateArray";
 import { bubbleSort } from "../../util/algorithms/bubbleSort";
 import { selectionSort } from "../../util/algorithms/selectionSort";
+import { quickSort } from "../../util/algorithms/quickSort";
 
-import { DEFAULT_ARR_SIZE, SORTING_SPEED, INACTIVE, ACTIVE, SEARCHING } from "../../util/helpers/constants";
+import {
+  DEFAULT_ARR_SIZE,
+  SORTING_SPEED,
+  INACTIVE,
+  ACTIVE,
+  SEARCHING,
+} from "../../util/helpers/constants";
 
 class ArrayContainer extends React.Component {
   state = {
@@ -39,7 +46,7 @@ class ArrayContainer extends React.Component {
     await this.setState({ arr: newArray });
   };
 
-  getQueue = async(arr) => {
+  getQueue = async (arr) => {
     let queue = [];
 
     if (this.props.algorithm === "bubbleSort") {
@@ -49,11 +56,11 @@ class ArrayContainer extends React.Component {
     } else if (this.props.algorithm === "mergeSort") {
       queue = await bubbleSort(arr);
     } else if (this.props.algorithm === "quickSort") {
-      queue = await bubbleSort(arr);
+      queue = await quickSort(arr, 0, arr.length - 1);
     }
 
     return queue;
-  }
+  };
 
   visualize = async () => {
     await this.setState({ isSorting: true });
@@ -71,7 +78,7 @@ class ArrayContainer extends React.Component {
       if (curr[2]) {
         await this.visualizeQueueSwap(curr, arrCopy);
       } else {
-         await this.visualizeQueueNoneSwap(curr, arrCopy);
+        await this.visualizeQueueNoneSwap(curr, arrCopy);
       }
     }
 
@@ -88,6 +95,7 @@ class ArrayContainer extends React.Component {
 
   visualizeQueueSwap = async (elementsToSwap, arr) => {
     await this.updateStyle(arr, elementsToSwap, ACTIVE);
+
     let temp = arr[elementsToSwap[0]].val;
     arr[elementsToSwap[0]].val = arr[elementsToSwap[1]].val;
     arr[elementsToSwap[1]].val = temp;
@@ -100,7 +108,7 @@ class ArrayContainer extends React.Component {
     await this.updateStyle(arr, elements, SEARCHING);
     await this.updateState(arr);
     await this.updateStyle(arr, elements, INACTIVE);
-  }
+  };
 
   updateState = async (arr) => {
     this.setState({ arr: [...arr] });
@@ -108,6 +116,9 @@ class ArrayContainer extends React.Component {
   };
 
   updateStyle = async (arr, indices, bool) => {
+    if (indices[3]) {
+      arr[indices[3]].className = await this.getClassType(SEARCHING);
+    }
     arr[indices[0]].className = await this.getClassType(bool);
     arr[indices[1]].className = await this.getClassType(bool);
 
