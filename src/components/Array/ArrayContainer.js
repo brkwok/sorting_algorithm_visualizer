@@ -11,6 +11,7 @@ import {
   ACTIVE,
   SEARCHING,
 } from "../../util/helpers/constants";
+import { mergeSort } from "../../util/algorithms/mergeSort";
 
 class ArrayContainer extends React.Component {
   state = {
@@ -54,7 +55,7 @@ class ArrayContainer extends React.Component {
     } else if (this.props.algorithm === "selectionSort") {
       queue = await selectionSort(arr);
     } else if (this.props.algorithm === "mergeSort") {
-      queue = await bubbleSort(arr);
+      queue = await mergeSort(arr, 0, arr.length - 1);
     } else if (this.props.algorithm === "quickSort") {
       queue = await quickSort(arr, 0, arr.length - 1);
     }
