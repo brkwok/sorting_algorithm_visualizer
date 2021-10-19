@@ -77,7 +77,7 @@ class Array extends React.Component {
     while (queue.length > 0) {
       let curr = queue.shift();
       if (this.props.algorithm === "mergeSort") {
-        // await this.visualizeQueueRange(curr[0], curr[1], curr[2], arrCopy);
+        await this.visualizeQueueRange(curr[0], curr[1], curr[2], arrCopy);
       } else {
         if (curr[2]) {
           await this.visualizeQueueSwap(curr, arrCopy);
