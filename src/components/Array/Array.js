@@ -67,7 +67,7 @@ class Array extends React.Component {
     await this.setState({ isSorting: true });
     let arrCopy = this.state.arr.slice();
     let queue = await this.getQueue(arrCopy);
-    let { currAlgo } = this.state;
+    let { currAlgo } = this.state || "Bubble Sort";
 
     if (queue.length < 1) {
       return;
