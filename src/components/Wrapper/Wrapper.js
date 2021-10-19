@@ -1,8 +1,8 @@
 import React from "react";
-import Array from "../Array/Array";
+import ArrayContainer from "../Array/ArrayContainer";
 import Header from "../Header/Header";
 
-class SortVisual extends React.Component {
+class Wrapper extends React.Component {
   state = {
     algorithm: "bubbleSort",
   };
@@ -19,10 +19,10 @@ class SortVisual extends React.Component {
     return (
       <>
         <Header setAlgorithm={this.setAlgorithm} />
-        <Array algorithm={this.state.algorithm}/>
+        <ArrayContainer algorithm={this.state.algorithm}/>
       </>
     );
   }
 }
 
-export default SortVisual;
+export default Wrapper;

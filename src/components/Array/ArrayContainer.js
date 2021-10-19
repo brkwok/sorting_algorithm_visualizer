@@ -11,9 +11,8 @@ import {
   ACTIVE,
   SEARCHING,
 } from "../../util/helpers/constants";
-import { mergeSort } from "../../util/algorithms/mergeSort";
 
-class Array extends React.Component {
+class ArrayContainer extends React.Component {
   state = {
     arr: [],
     isSorting: false,
@@ -55,7 +54,7 @@ class Array extends React.Component {
     } else if (this.props.algorithm === "selectionSort") {
       queue = await selectionSort(arr);
     } else if (this.props.algorithm === "mergeSort") {
-      queue = await mergeSort(arr, 0, arr.length - 1);
+      queue = await bubbleSort(arr);
     } else if (this.props.algorithm === "quickSort") {
       queue = await quickSort(arr, 0, arr.length - 1);
     }
@@ -74,7 +73,6 @@ class Array extends React.Component {
     }
 
     arrCopy = this.state.arr.slice();
-
     while (queue.length > 0) {
       let curr = queue.shift();
 
@@ -83,12 +81,13 @@ class Array extends React.Component {
         let val = curr[1];
         let range = curr[2];
         await this.visualizeQueueRange(idxToChange, val, range, arrCopy);
-      } else {
+      }else {
         if (curr[2]) {
           await this.visualizeQueueSwap(curr, arrCopy);
         } else {
           await this.visualizeQueueNoneSwap(curr, arrCopy);
         }
+
       }
     }
 
@@ -208,4 +207,4 @@ class Array extends React.Component {
   }
 }
 
-export default Array;
+export default ArrayContainer;

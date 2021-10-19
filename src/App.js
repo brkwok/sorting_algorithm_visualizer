@@ -1,11 +1,11 @@
 import React from "react";
-import SortVisual from "./components/SortVisual/SortVisual";
+import Wrapper from "./components/Wrapper/Wrapper";
 
 
 function App() {
   return (
     <div className="App">
-      <SortVisual />
+      <Wrapper />
     </div>
   );
 }
