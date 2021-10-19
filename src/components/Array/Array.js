@@ -11,8 +11,9 @@ import {
   ACTIVE,
   SEARCHING,
 } from "../../util/helpers/constants";
+import { mergeSort } from "../../util/algorithms/mergeSort";
 
-class ArrayContainer extends React.Component {
+class Array extends React.Component {
   state = {
     arr: [],
     isSorting: false,
@@ -54,7 +55,7 @@ class ArrayContainer extends React.Component {
     } else if (this.props.algorithm === "selectionSort") {
       queue = await selectionSort(arr);
     } else if (this.props.algorithm === "mergeSort") {
-      queue = await bubbleSort(arr);
+      queue = await mergeSort(arr, 0, arr.length - 1);
     } else if (this.props.algorithm === "quickSort") {
       queue = await quickSort(arr, 0, arr.length - 1);
     }
@@ -72,13 +73,18 @@ class ArrayContainer extends React.Component {
     }
 
     arrCopy = this.state.arr.slice();
+
     while (queue.length > 0) {
       let curr = queue.shift();
-
-      if (curr[2]) {
-        await this.visualizeQueueSwap(curr, arrCopy);
+      debugger;
+      if (this.props.algorithm === "mergeSort") {
+        await this.visualizeQueueRange(curr[0], curr[1], curr[2], arrCopy);
       } else {
-        await this.visualizeQueueNoneSwap(curr, arrCopy);
+        if (curr[2]) {
+          await this.visualizeQueueSwap(curr, arrCopy);
+        } else {
+          await this.visualizeQueueNoneSwap(curr, arrCopy);
+        }
       }
     }
 
@@ -91,6 +97,22 @@ class ArrayContainer extends React.Component {
       arr[i].className = "finished";
       await this.updateState(arr);
     }
+  };
+
+  visualizeQueueRange = async (idxToChange, val, range, arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (i >= range[0] && i <= range[1]) {
+        arr[i].className = "active"; 
+      } else {
+        arr[i].className = "inactive";
+      }
+    }
+
+    arr[idxToChange].val = val;
+    await this.updateState(arr);
+
+
+    await this.updateState(arr);
   };
 
   visualizeQueueSwap = async (elementsToSwap, arr) => {
@@ -185,4 +207,4 @@ class ArrayContainer extends React.Component {
   }
 }
 
-export default ArrayContainer;
+export default Array;
