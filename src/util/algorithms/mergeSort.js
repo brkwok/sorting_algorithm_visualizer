@@ -1,4 +1,4 @@
-export const mergeSort = (arr, left, right, visualizeQueue = []) => {
+export const mergeSort = async (arr, left, right, visualizeQueue = []) => {
   if (left >= right) {
     return;
   }
@@ -6,14 +6,14 @@ export const mergeSort = (arr, left, right, visualizeQueue = []) => {
   // prevent overflow
   let mid = left + parseInt((right - left) / 2);
 
-  mergeSort(arr, left, mid, visualizeQueue);
-  mergeSort(arr, mid + 1, right, visualizeQueue);
-  merge(arr, left, mid, right, visualizeQueue);
+  await mergeSort(arr, left, mid, visualizeQueue);
+  await mergeSort(arr, mid + 1, right, visualizeQueue);
+  await merge(arr, left, mid, right, visualizeQueue);
 
   return visualizeQueue;
 };
 
-const merge = (arr, left, mid, right, visualizeQueue) => {
+const merge = async (arr, left, mid, right, visualizeQueue) => {
   const size1 = mid - left + 1;
   const size2 = right - mid;
 
