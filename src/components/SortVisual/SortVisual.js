@@ -16,7 +16,6 @@ class SortVisual extends React.Component {
   };
 
   render() {
-    console.log(this.state.algorithm); // FIXME: REMOVE
     return (
       <>
         <Header setAlgorithm={this.setAlgorithm} />

@@ -67,6 +67,7 @@ class Array extends React.Component {
     await this.setState({ isSorting: true });
     let arrCopy = this.state.arr.slice();
     let queue = await this.getQueue(arrCopy);
+    let { currAlgo } = this.state;
 
     if (queue.length < 1) {
       return;
@@ -76,8 +77,12 @@ class Array extends React.Component {
 
     while (queue.length > 0) {
       let curr = queue.shift();
-      if (this.props.algorithm === "mergeSort") {
-        await this.visualizeQueueRange(curr[0], curr[1], curr[2], arrCopy);
+
+      if (currAlgo === "Merge Sort") {
+        let idxToChange = curr[0];
+        let val = curr[1];
+        let range = curr[2];
+        await this.visualizeQueueRange(idxToChange, val, range, arrCopy);
       } else {
         if (curr[2]) {
           await this.visualizeQueueSwap(curr, arrCopy);
