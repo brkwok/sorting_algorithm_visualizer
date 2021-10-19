@@ -101,7 +101,7 @@ class Array extends React.Component {
   visualizeQueueRange = async (idxToChange, val, range, arr) => {
     for (let i = 0; i < arr.length; i++) {
       if (i >= range[0] && i <= range[1]) {
-        arr[i].className = "active"; 
+        arr[i].className = "active";
       } else {
         arr[i].className = "inactive";
       }
@@ -109,7 +109,6 @@ class Array extends React.Component {
 
     arr[idxToChange].val = val;
     await this.updateState(arr);
-
 
     await this.updateState(arr);
   };
