@@ -109,8 +109,6 @@ class Array extends React.Component {
 
     arr[idxToChange].val = val;
     await this.updateState(arr);
-
-    await this.updateState(arr);
   };
 
   visualizeQueueSwap = async (elementsToSwap, arr) => {
